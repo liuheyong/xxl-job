@@ -42,14 +42,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <!-- xxl-job-core -->
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -69,6 +67,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

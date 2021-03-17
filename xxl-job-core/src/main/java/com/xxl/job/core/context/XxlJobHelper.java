@@ -30,7 +30,6 @@ public class XxlJobHelper {
         if (xxlJobContext == null) {
             return -1;
         }
-
         return xxlJobContext.getJobId();
     }
 
@@ -44,7 +43,6 @@ public class XxlJobHelper {
         if (xxlJobContext == null) {
             return null;
         }
-
         return xxlJobContext.getJobParam();
     }
 
@@ -60,7 +58,6 @@ public class XxlJobHelper {
         if (xxlJobContext == null) {
             return null;
         }
-
         return xxlJobContext.getJobLogFileName();
     }
 
@@ -76,7 +73,6 @@ public class XxlJobHelper {
         if (xxlJobContext == null) {
             return -1;
         }
-
         return xxlJobContext.getShardIndex();
     }
 
@@ -90,7 +86,6 @@ public class XxlJobHelper {
         if (xxlJobContext == null) {
             return -1;
         }
-
         return xxlJobContext.getShardTotal();
     }
 
@@ -101,19 +96,16 @@ public class XxlJobHelper {
     /**
      * append log with pattern
      *
-     * @param appendLogPattern  like "aaa {} bbb {} ccc"
-     * @param appendLogArguments    like "111, true"
+     * @param appendLogPattern   like "aaa {} bbb {} ccc"
+     * @param appendLogArguments like "111, true"
      */
-    public static boolean log(String appendLogPattern, Object ... appendLogArguments) {
-
+    public static boolean log(String appendLogPattern, Object... appendLogArguments) {
         FormattingTuple ft = MessageFormatter.arrayFormat(appendLogPattern, appendLogArguments);
         String appendLog = ft.getMessage();
-
         /*appendLog = appendLogPattern;
         if (appendLogArguments!=null && appendLogArguments.length>0) {
             appendLog = MessageFormat.format(appendLogPattern, appendLogArguments);
         }*/
-
         StackTraceElement callInfo = new Throwable().getStackTrace()[1];
         return logDetail(callInfo, appendLog);
     }
@@ -151,16 +143,16 @@ public class XxlJobHelper {
 
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DateUtil.formatDateTime(new Date())).append(" ")
-                .append("["+ callInfo.getClassName() + "#" + callInfo.getMethodName() +"]").append("-")
-                .append("["+ callInfo.getLineNumber() +"]").append("-")
-                .append("["+ Thread.currentThread().getName() +"]").append(" ")
-                .append(appendLog!=null?appendLog:"");
+                .append("[" + callInfo.getClassName() + "#" + callInfo.getMethodName() + "]").append("-")
+                .append("[" + callInfo.getLineNumber() + "]").append("-")
+                .append("[" + Thread.currentThread().getName() + "]").append(" ")
+                .append(appendLog != null ? appendLog : "");
         String formatAppendLog = stringBuffer.toString();
 
         // appendlog
         String logFileName = xxlJobContext.getJobLogFileName();
 
-        if (logFileName!=null && logFileName.trim().length()>0) {
+        if (logFileName != null && logFileName.trim().length() > 0) {
             XxlJobFileAppender.appendLog(logFileName, formatAppendLog);
             return true;
         } else {
@@ -176,7 +168,7 @@ public class XxlJobHelper {
      *
      * @return
      */
-    public static boolean handleSuccess(){
+    public static boolean handleSuccess() {
         return handleResult(XxlJobContext.HANDLE_COCE_SUCCESS, null);
     }
 
@@ -195,7 +187,7 @@ public class XxlJobHelper {
      *
      * @return
      */
-    public static boolean handleFail(){
+    public static boolean handleFail() {
         return handleResult(XxlJobContext.HANDLE_COCE_FAIL, null);
     }
 
@@ -214,7 +206,7 @@ public class XxlJobHelper {
      *
      * @return
      */
-    public static boolean handleTimeout(){
+    public static boolean handleTimeout() {
         return handleResult(XxlJobContext.HANDLE_COCE_TIMEOUT, null);
     }
 
@@ -224,17 +216,14 @@ public class XxlJobHelper {
      * @param handleMsg
      * @return
      */
-    public static boolean handleTimeout(String handleMsg){
+    public static boolean handleTimeout(String handleMsg) {
         return handleResult(XxlJobContext.HANDLE_COCE_TIMEOUT, handleMsg);
     }
 
     /**
-     * @param handleCode
-     *
-     *      200 : success
-     *      500 : fail
-     *      502 : timeout
-     *
+     * @param handleCode 200 : success
+     *                   500 : fail
+     *                   502 : timeout
      * @param handleMsg
      * @return
      */
@@ -250,6 +239,5 @@ public class XxlJobHelper {
         }
         return true;
     }
-
 
 }

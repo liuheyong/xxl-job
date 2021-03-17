@@ -23,10 +23,10 @@ import java.util.Arrays;
 public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
 
     private static XxlJobAdminConfig adminConfig = null;
+
     public static XxlJobAdminConfig getAdminConfig() {
         return adminConfig;
     }
-
 
     // ---------------------- XxlJobScheduler ----------------------
 
@@ -44,7 +44,6 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     public void destroy() throws Exception {
         xxlJobScheduler.destroy();
     }
-
 
     // ---------------------- XxlJobScheduler ----------------------
 

@@ -10,18 +10,17 @@ import java.util.concurrent.TimeUnit;
  * @author xuxueli 2018-10-31 19:05:43
  */
 public class FramelessApplication {
+
     private static Logger logger = LoggerFactory.getLogger(FramelessApplication.class);
 
     public static void main(String[] args) {
-
         try {
             // start
             FrameLessXxlJobConfig.getInstance().initXxlJobExecutor();
-
             // Blocks until interrupted
             while (true) {
                 try {
-                    TimeUnit.HOURS.sleep(1);
+                    TimeUnit.MINUTES.sleep(1);
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -32,7 +31,6 @@ public class FramelessApplication {
             // destory
             FrameLessXxlJobConfig.getInstance().destoryXxlJobExecutor();
         }
-
     }
 
 }
