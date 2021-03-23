@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentMap;
  */
 
 public class XxlJobScheduler  {
-    private static final Logger logger = LoggerFactory.getLogger(XxlJobScheduler.class);
 
+    private static final Logger logger = LoggerFactory.getLogger(XxlJobScheduler.class);
 
     public void init() throws Exception {
         // init i18n

@@ -37,11 +37,9 @@ public class UserController {
     @RequestMapping
     @PermissionLimit(adminuser = true)
     public String index(Model model) {
-
         // 执行器列表
         List<XxlJobGroup> groupList = xxlJobGroupDao.findAll();
         model.addAttribute("groupList", groupList);
-
         return "user/user.index";
     }
 
@@ -100,7 +98,6 @@ public class UserController {
         if (existUser != null) {
             return new ReturnT<String>(ReturnT.FAIL_CODE, I18nUtil.getString("user_username_repeat"));
         }
-
         // write
         xxlJobUserDao.save(xxlJobUser);
         return ReturnT.SUCCESS;

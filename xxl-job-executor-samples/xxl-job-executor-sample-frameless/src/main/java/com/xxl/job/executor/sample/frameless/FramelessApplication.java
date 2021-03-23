@@ -20,7 +20,7 @@ public class FramelessApplication {
             // Blocks until interrupted
             while (true) {
                 try {
-                    TimeUnit.MINUTES.sleep(1);
+                    TimeUnit.HOURS.sleep(1);
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -28,7 +28,7 @@ public class FramelessApplication {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         } finally {
-            // destory
+            // destroy
             FrameLessXxlJobConfig.getInstance().destoryXxlJobExecutor();
         }
     }

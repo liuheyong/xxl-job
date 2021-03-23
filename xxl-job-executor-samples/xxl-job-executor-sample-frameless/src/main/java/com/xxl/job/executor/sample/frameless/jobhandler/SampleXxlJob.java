@@ -33,13 +33,14 @@ public class SampleXxlJob {
      * 1、简单任务示例（Bean模式）
      */
     @XxlJob("demoJobHandler")
-    public void demoJobHandler() throws Exception {
+    public Boolean demoJobHandler() throws Exception {
+        //上报日志到admin
         XxlJobHelper.log("XXL-JOB, Hello World.");
         for (int i = 0; i < 5; i++) {
             XxlJobHelper.log("beat at:" + i);
             TimeUnit.SECONDS.sleep(2);
         }
-        // default success
+        return XxlJobHelper.handleSuccess();
     }
 
     /**
@@ -115,12 +116,10 @@ public class SampleXxlJob {
      */
     @XxlJob("httpJobHandler")
     public void httpJobHandler() throws Exception {
-
         // param parse
         String param = XxlJobHelper.getJobParam();
         if (param == null || param.trim().length() == 0) {
             XxlJobHelper.log("param[" + param + "] invalid.");
-
             XxlJobHelper.handleFail();
             return;
         }
@@ -139,7 +138,6 @@ public class SampleXxlJob {
                 data = httpParam.substring(httpParam.indexOf("data:") + 5).trim();
             }
         }
-
         // param valid
         if (url == null || url.trim().length() == 0) {
             XxlJobHelper.log("url[" + url + "] invalid.");
@@ -154,7 +152,6 @@ public class SampleXxlJob {
             return;
         }
         boolean isPostMethod = method.equals("POST");
-
         // request
         HttpURLConnection connection = null;
         BufferedReader bufferedReader = null;
@@ -199,13 +196,10 @@ public class SampleXxlJob {
                 result.append(line);
             }
             String responseMsg = result.toString();
-
             XxlJobHelper.log(responseMsg);
-
             return;
         } catch (Exception e) {
             XxlJobHelper.log(e);
-
             XxlJobHelper.handleFail();
             return;
         } finally {
@@ -235,7 +229,7 @@ public class SampleXxlJob {
     }
 
     public void destroy() {
-        logger.info("destory");
+        logger.info("destroy");
     }
 
 }

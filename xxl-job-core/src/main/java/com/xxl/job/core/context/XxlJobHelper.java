@@ -116,11 +116,9 @@ public class XxlJobHelper {
      * @param e
      */
     public static boolean log(Throwable e) {
-
         StringWriter stringWriter = new StringWriter();
         e.printStackTrace(new PrintWriter(stringWriter));
         String appendLog = stringWriter.toString();
-
         StackTraceElement callInfo = new Throwable().getStackTrace()[1];
         return logDetail(callInfo, appendLog);
     }
@@ -148,7 +146,6 @@ public class XxlJobHelper {
                 .append("[" + Thread.currentThread().getName() + "]").append(" ")
                 .append(appendLog != null ? appendLog : "");
         String formatAppendLog = stringBuffer.toString();
-
         // appendlog
         String logFileName = xxlJobContext.getJobLogFileName();
 
@@ -232,12 +229,10 @@ public class XxlJobHelper {
         if (xxlJobContext == null) {
             return false;
         }
-
         xxlJobContext.setHandleCode(handleCode);
         if (handleMsg != null) {
             xxlJobContext.setHandleMsg(handleMsg);
         }
         return true;
     }
-
 }

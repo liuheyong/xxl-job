@@ -112,7 +112,6 @@ public class XxlJobSimpleExecutor extends XxlJobExecutor {
                 // registry jobhandler
                 registJobHandler(name, new MethodJobHandler(bean, executeMethod, initMethod, destroyMethod));
 
-
             }
 
         }

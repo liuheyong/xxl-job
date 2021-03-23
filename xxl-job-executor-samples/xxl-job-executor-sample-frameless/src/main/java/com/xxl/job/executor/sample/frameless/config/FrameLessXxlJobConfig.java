@@ -66,8 +66,8 @@ public class FrameLessXxlJobConfig {
     public static Properties loadProperties(String propertyFileName) {
         InputStreamReader in = null;
         try {
-            ClassLoader loder = Thread.currentThread().getContextClassLoader();
-            in = new InputStreamReader(loder.getResourceAsStream(propertyFileName), "UTF-8");
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            in = new InputStreamReader(loader.getResourceAsStream(propertyFileName), "UTF-8");
             if (in != null) {
                 Properties prop = new Properties();
                 prop.load(in);
