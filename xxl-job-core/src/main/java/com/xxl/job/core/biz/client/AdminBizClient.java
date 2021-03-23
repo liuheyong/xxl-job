@@ -31,7 +31,6 @@ public class AdminBizClient implements AdminBiz {
     private String accessToken;
     private int timeout = 3;
 
-
     @Override
     public ReturnT<String> callback(List<HandleCallbackParam> callbackParamList) {
         return XxlJobRemotingUtil.postBody(addressUrl+"api/callback", accessToken, timeout, callbackParamList, String.class);

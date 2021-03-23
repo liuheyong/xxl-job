@@ -25,7 +25,6 @@ public class TriggerParam implements Serializable{
     private int broadcastIndex;
     private int broadcastTotal;
 
-
     public int getJobId() {
         return jobId;
     }
@@ -122,7 +121,6 @@ public class TriggerParam implements Serializable{
         this.broadcastTotal = broadcastTotal;
     }
 
-
     @Override
     public String toString() {
         return "TriggerParam{" +
@@ -140,5 +138,4 @@ public class TriggerParam implements Serializable{
                 ", broadcastTotal=" + broadcastTotal +
                 '}';
     }
-
 }

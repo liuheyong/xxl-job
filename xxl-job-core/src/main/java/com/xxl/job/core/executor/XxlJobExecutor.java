@@ -60,7 +60,6 @@ public class XxlJobExecutor  {
         this.logRetentionDays = logRetentionDays;
     }
 
-
     // ---------------------- start + stop ----------------------
     public void start() throws Exception {
 
@@ -80,6 +79,7 @@ public class XxlJobExecutor  {
         // init executor-server
         initEmbedServer(address, ip, port, appname, accessToken);
     }
+
     public void destroy(){
         // destory executor-server
         stopEmbedServer();
@@ -107,9 +107,7 @@ public class XxlJobExecutor  {
 
         // destory TriggerCallbackThread
         TriggerCallbackThread.getInstance().toStop();
-
     }
-
 
     // ---------------------- admin-client (rpc invoker) ----------------------
     private static List<AdminBiz> adminBizList;

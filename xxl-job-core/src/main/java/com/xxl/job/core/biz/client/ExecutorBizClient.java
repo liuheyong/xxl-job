@@ -27,7 +27,6 @@ public class ExecutorBizClient implements ExecutorBiz {
     private String accessToken;
     private int timeout = 3;
 
-
     @Override
     public ReturnT<String> beat() {
         return XxlJobRemotingUtil.postBody(addressUrl+"beat", accessToken, timeout, "", String.class);
