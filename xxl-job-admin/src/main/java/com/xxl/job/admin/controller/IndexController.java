@@ -35,7 +35,6 @@ public class IndexController {
     @Resource
     private LoginService loginService;
 
-
     @RequestMapping("/")
     public String index(Model model) {
 
