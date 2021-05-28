@@ -190,8 +190,7 @@ import java.util.*;
  */
 public final class CronExpression implements Serializable, Cloneable {
 
-    private static final long serialVersionUID = 12423409423L;
-
+    public static final int MAX_YEAR = Calendar.getInstance().get(Calendar.YEAR) + 100;
     protected static final int SECOND = 0;
     protected static final int MINUTE = 1;
     protected static final int HOUR = 2;
@@ -206,6 +205,7 @@ public final class CronExpression implements Serializable, Cloneable {
 
     protected static final Map<String, Integer> monthMap = new HashMap<String, Integer>(20);
     protected static final Map<String, Integer> dayMap = new HashMap<String, Integer>(60);
+    private static final long serialVersionUID = 12423409423L;
 
     static {
         monthMap.put("JAN", 0);
@@ -231,7 +231,6 @@ public final class CronExpression implements Serializable, Cloneable {
     }
 
     private final String cronExpression;
-    private TimeZone timeZone = null;
     protected transient TreeSet<Integer> seconds;
     protected transient TreeSet<Integer> minutes;
     protected transient TreeSet<Integer> hours;
@@ -246,8 +245,7 @@ public final class CronExpression implements Serializable, Cloneable {
     protected transient boolean nearestWeekday = false;
     protected transient int lastdayOffset = 0;
     protected transient boolean expressionParsed = false;
-
-    public static final int MAX_YEAR = Calendar.getInstance().get(Calendar.YEAR) + 100;
+    private TimeZone timeZone = null;
 
     /**
      * Constructs a new <CODE>CronExpression</CODE> based on the specified
@@ -289,6 +287,30 @@ public final class CronExpression implements Serializable, Cloneable {
         if (expression.getTimeZone() != null) {
             setTimeZone((TimeZone) expression.getTimeZone().clone());
         }
+    }
+
+    /**
+     * Indicates whether the specified cron expression can be parsed into a
+     * valid cron expression
+     *
+     * @param cronExpression the expression to evaluate
+     * @return a boolean indicating whether the given expression is a valid cron
+     * expression
+     */
+    public static boolean isValidExpression(String cronExpression) {
+
+        try {
+            new CronExpression(cronExpression);
+        } catch (ParseException pe) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void validateExpression(String cronExpression) throws ParseException {
+
+        new CronExpression(cronExpression);
     }
 
     /**
@@ -392,30 +414,6 @@ public final class CronExpression implements Serializable, Cloneable {
     @Override
     public String toString() {
         return cronExpression;
-    }
-
-    /**
-     * Indicates whether the specified cron expression can be parsed into a
-     * valid cron expression
-     *
-     * @param cronExpression the expression to evaluate
-     * @return a boolean indicating whether the given expression is a valid cron
-     * expression
-     */
-    public static boolean isValidExpression(String cronExpression) {
-
-        try {
-            new CronExpression(cronExpression);
-        } catch (ParseException pe) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public static void validateExpression(String cronExpression) throws ParseException {
-
-        new CronExpression(cronExpression);
     }
 
 
@@ -1548,7 +1546,7 @@ public final class CronExpression implements Serializable, Cloneable {
 
             // get year...................................................
             st = years.tailSet(year);
-            if (st != null && st.size() != 0) {
+            if (st.size() != 0) {
                 t = year;
                 year = st.first();
             } else {
@@ -1614,32 +1612,22 @@ public final class CronExpression implements Serializable, Cloneable {
 
         switch (monthNum) {
             case 1:
+            case 5:
+            case 3:
+            case 7:
+            case 10:
+            case 12:
+            case 8:
                 return 31;
             case 2:
                 return (isLeapYear(year)) ? 29 : 28;
-            case 3:
-                return 31;
             case 4:
-                return 30;
-            case 5:
-                return 31;
             case 6:
-                return 30;
-            case 7:
-                return 31;
-            case 8:
-                return 31;
             case 9:
-                return 30;
-            case 10:
-                return 31;
             case 11:
                 return 30;
-            case 12:
-                return 31;
             default:
-                throw new IllegalArgumentException("Illegal month number: "
-                        + monthNum);
+                throw new IllegalArgumentException("Illegal month number: " + monthNum);
         }
     }
 

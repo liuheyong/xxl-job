@@ -55,11 +55,11 @@ public class WebExceptionResolver implements HandlerExceptionResolver {
             } catch (IOException e) {
                 logger.error(e.getMessage(), e);
             }
-		} else {
+        } else {
             mv.addObject("exceptionMsg", errorResult.getMsg());
             mv.setViewName("/common/common.exception");
-		}
-		return mv;
-	}
+        }
+        return mv;
+    }
 
 }
